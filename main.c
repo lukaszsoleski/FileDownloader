@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <curl/curl.h>
+#include <stdlib.h>
+#include <string.h>
 #define SKIP_PEER_VERIFICATION = TRUE;
 
 // libcurl callback function
