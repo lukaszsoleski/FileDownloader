@@ -3,19 +3,58 @@
 #include <stdlib.h>
 #include <string.h>
 #define SKIP_PEER_VERIFICATION = TRUE;
-
+// libcurl result containing html text
+struct MemoryStruct {
+  char *memory;
+  size_t size;
+};
 // libcurl callback function
-size_t write_data(void *buffer, size_t size, size_t nmemb, void *userp)
+size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, void *userp)
 {
-   return size * nmemb;
+  // full size
+  size_t realsize = size * nmemb;
+  struct MemoryStruct *mem = (struct MemoryStruct *)userp;
+  // allocate required space
+  char *temp = realloc(mem->memory, mem->size + realsize + 1);
+  if(temp == NULL) {
+    /* out of memory! */ 
+    printf("not enough memory (realloc returned NULL)\n");
+    return 0;
+  }
+  // set allocated memory pointer to global variable
+  mem->memory = temp;
+  // copy data to the allocated space
+  memcpy(&(mem->memory[mem->size]), contents, realsize);
+  // update counter
+  mem->size += realsize;
+  // add the end of string character
+  mem->memory[mem->size] = '\0';
+  // return written size 
+  return realsize;
 }
 
 int main(int argc, char *argv[])
 {
   CURL *curl;
   CURLcode res;
+
+  struct MemoryStruct chunk;
+
+  chunk.memory = malloc(1);  /* will be grown as needed by the realloc in callback func */ 
+  chunk.size = 0;    /* no data at this point */ 
+  //init curl library globally
   curl_global_init(CURL_GLOBAL_DEFAULT);
+
+  /* init the curl session */ 
   curl = curl_easy_init();
+  /* send all data to this function  */ 
+  curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteMemoryCallback);
+   /* we pass our 'chunk' struct to the callback function */ 
+  curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk);
+  /* some servers don't like requests that are made without a user-agent
+     field, so we provide one */ 
+  curl_easy_setopt(curl, CURLOPT_USERAGENT, "libcurl-agent/1.0");
+
 /*
   switch(argc){
   case 1: help();
@@ -36,7 +75,6 @@ int main(int argc, char *argv[])
   if(curl) {
     curl_easy_setopt(curl, CURLOPT_URL, "https://example.com/");
 
-    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
 
 #ifdef SKIP_PEER_VERIFICATION
     /*
@@ -68,11 +106,18 @@ int main(int argc, char *argv[])
     if(res != CURLE_OK)
       fprintf(stderr, "curl_easy_perform() failed: %s\n",
               curl_easy_strerror(res));
+    else {
+      printf("Printing HTML: \n"); 
+      printf("%s",chunk.memory); 
 
-    /* always cleanup */
-    curl_easy_cleanup(curl);
+    }
+
   }
 
+  
+  /* always cleanup */
+  curl_easy_cleanup(curl);
+  free(chunk.memory);
   curl_global_cleanup();
 
   return 0;
