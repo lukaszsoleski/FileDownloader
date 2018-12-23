@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Looblab theme</title>
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body id="home">
+<!-- NAVBAR --> 
+  <div class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+    <div class="container">
+      <button class="navbar-toggler" data-toggle="collapse"
+      data-target="#navbarCollapse">
+    <span class="navbar-toggler-icon"></span>
+      </button>
+  <a href="index.html" class="navbar-brand">Loop lab</a>      
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a href="#home" class="nav-link">Home</a>
+      </li>
+      <li class="nav-item">
+        <a href="#explore-head-section" class="nav-link">Explore</a>
+      </li>
+      <li class="nav-item">
+        <a href="#create-head-section" class="nav-link">Create</a>
+      </li>
+      <li class="nav-item">
+        <a href="#share-head-section" class="nav-link">Share</a>
+      </li>
+      <li class="nav-item">
+          <a href="#main-footer" class="nav-link">Contact Us</a>
+        </li>
+    </ul>
+  </div>
+
+    </div>
+
+  </div>
+<!--HOME SECTION-->
+<header id="home-section">
+  <div class="dark-overlay">
+    <div class="home-inner">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 d-none d-lg-block">
+              <h1 class="display-4">Build <strong>social profiles</strong> and gain<strong> revenue and profits</strong></h1>
+              <div class="d-flex flex-row">
+                <div class="p-4 align-self-start">
+                  <i class="fa fa-check"></i>
+                </div>
+                <div class="p4 align-self-end">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus nobis illum repellat id modi porro fuga magnam alias eum quod. Ea distinctio magni nulla, et sequi quaerat, odio cumque corporis ipsum, quia veritatis excepturi? Maiores cupiditate accusantium explicabo laborum. Minima?
+                </div>
+              </div>
+              <div class="d-flex flex-row">
+                <div class="p-4 align-self-start">
+                  <i class="fa fa-check"></i>
+                </div>
+                <div class="p4 align-self-end">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus nobis illum repellat id modi porro fuga magnam alias eum quod. Ea distinctio magni nulla, et sequi quaerat, odio cumque corporis ipsum, quia veritatis excepturi? Maiores cupiditate accusantium explicabo laborum. Minima?
+                </div>
+                
+              </div>
+              <div class="d-flex flex-row">
+                <div class="p-4 align-self-start">
+                  <i class="fa fa-check"></i>
+                </div>
+                <div class="p4 align-self-end">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus nobis illum repellat id modi porro fuga magnam alias eum quod. Ea distinctio magni nulla, et sequi quaerat, odio cumque corporis ipsum, quia veritatis excepturi? Maiores cupiditate accusantium explicabo laborum. Minima?
+                </div>
+                
+              </div>
+          </div>
+          
+          <div class="col-lg-4">
+            <div class="card bg-primary text-center card-form">
+              <div class="card-body">
+                <h3>Sign Up Today</h3>
+                <p>Please fill out this form to register</p>
+                <form>
+                  <div class="form-group">
+                    <input type="text" placeholder="Username" class="form-control form-control-lg">
+
+                  </div>
+                  <div class="form-group">
+                      <input type="email" placeholder="Email" class="form-control form-control-lg">
+  
+                    </div>
+                    <div class="form-group">
+                        <input type="password" placeholder="Password" class="form-control form-control-lg">
+    
+                      </div>
+                      <div class="form-group">
+                          <input type="password" placeholder="Confirm Password" class="form-control form-control-lg">
+                        </div>
+                        <input type="submit" class="btn btn-outline-light btn-block">
+
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- EXPLORE HEAD --> 
+<section id="explore-head-section">
+  <div class="container">
+    <div class="row">
+      <div class="col text-center">
+        <div class="py-5">
+          <h1 class="display-4">Explore</h1>
+          <p class="lead">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga optio quisquam perspiciatis alias, accusamus explicabo modi repellat, dignissimos dolores libero, rem blanditiis architecto commodi dolor eligendi praesentium ipsa reiciendis quis quasi nihil adipisci quam itaque laborum. Quidem officia quas id?</p>
+          <a href="#" class="btn btn-outline-secondary">Find out more</a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- EXPLORE SECTION -->
+<section id="explore-section" class="bg-light text-muted py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <img src="img/explore-section1.jpg" alt="" class="img-fluid mb-3 rounded-circle">
+      </div>
+      <div class="col-md-6">
+        <h3>Explore & Connect</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint praesentium dolore doloremque sunt, labore dolores voluptate a architecto veritatis numquam atque, necessitatibus dolorum ipsa quod.</p>
+        <div class="d-flex flex-row">
+            <div class="p-4 align-self-start">
+              <i class="fa fa-check"></i>
+            </div>
+            <div class="p4 align-self-end">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus nobis illum repellat id modi porro fuga magnam alias eum quod. Ea distinctio magni nulla, et sequi quaerat, odio cumque corporis ipsum, quia veritatis excepturi? Maiores cupiditate accusantium explicabo laborum. Minima?
+            </div>
+            
+          </div>
+          <div class="d-flex flex-row">
+              <div class="p-4 align-self-start">
+                <i class="fa fa-check"></i>
+              </div>
+              <div class="p4 align-self-end">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus nobis illum repellat id modi porro fuga magnam alias eum quod. Ea distinctio magni nulla, et sequi quaerat, odio cumque corporis ipsum, quia veritatis excepturi? Maiores cupiditate accusantium explicabo laborum. Minima?
+              </div>
+              
+            </div>
+          </div>
+    </div>
+  </div>
+</section>
+
+<!-- -->
+
+<!-- CREATE  HEAD --> 
+<section id="create-head-section" class="bg-primary">
+    <div class="container">
+      <div class="row">
+        <div class="col text-center">
+          <div class="py-5">
+            <h1 class="display-4">Create</h1>
+            <p class="lead">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga optio quisquam perspiciatis alias, accusamus explicabo modi repellat, dignissimos dolores libero, rem blanditiis architecto commodi dolor eligendi praesentium ipsa reiciendis quis quasi nihil adipisci quam itaque laborum. Quidem officia quas id?</p>
+            <a href="#" class="btn btn-outline-light">Find out more</a>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- CREATE SECTION -->
+  <section id="create-section" class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <h3>Create your passion</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint praesentium dolore doloremque sunt, labore dolores voluptate a architecto veritatis numquam atque, necessitatibus dolorum ipsa quod.</p>
+          <div class="d-flex flex-row">
+              <div class="p-4 align-self-start">
+                <i class="fa fa-check"></i>
+              </div>
+              <div class="p4 align-self-end">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus nobis illum repellat id modi porro fuga magnam alias eum quod. Ea distinctio magni nulla, et sequi quaerat, odio cumque corporis ipsum, quia veritatis excepturi? Maiores cupiditate accusantium explicabo laborum. Minima?
+              </div>
+              
+            </div>
+            <div class="d-flex flex-row">
+                <div class="p-4 align-self-start">
+                  <i class="fa fa-check"></i>
+                </div>
+                <div class="p4 align-self-end">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus nobis illum repellat id modi porro fuga magnam alias eum quod. Ea distinctio magni nulla, et sequi quaerat, odio cumque corporis ipsum, quia veritatis excepturi? Maiores cupiditate accusantium explicabo laborum. Minima?
+                </div>
+                
+              </div>
+            </div>
+            <div class="col-lg-6">
+                <img src="img/create-section1.jpg" alt="" class="img-fluid mb-3 rounded-circle">
+              </div>
+              
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- SHARE  HEAD --> 
+<section id="share-head-section" class="bg-primary">
+    <div class="container">
+      <div class="row">
+        <div class="col text-center">
+          <div class="py-5">
+            <h1 class="display-4">Share</h1>
+            <p class="lead">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga optio quisquam perspiciatis alias, accusamus explicabo modi repellat, dignissimos dolores libero, rem blanditiis architecto commodi dolor eligendi praesentium ipsa reiciendis quis quasi nihil adipisci quam itaque laborum. Quidem officia quas id?</p>
+            <a href="#" class="btn btn-outline-light">Find out more</a>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- SHARE SECTION -->
+  <section id="share-section" class="py-5 bg-light text-muted">
+    <div class="container">
+      <div class="row">
+       
+          <div class="col-lg-6">
+              <img src="img/share-section1.jpg" alt="" class="img-fluid mb-3 rounded-circle">
+            </div>
+        <div class="col-lg-6">
+          <h3>Share what you create</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint praesentium dolore doloremque sunt, labore dolores voluptate a architecto veritatis numquam atque, necessitatibus dolorum ipsa quod.</p>
+          <div class="d-flex flex-row">
+              <div class="p-4 align-self-start">
+                <i class="fa fa-check"></i>
+              </div>
+              <div class="p4 align-self-end">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus nobis illum repellat id modi porro fuga magnam alias eum quod. Ea distinctio magni nulla, et sequi quaerat, odio cumque corporis ipsum, quia veritatis excepturi? Maiores cupiditate accusantium explicabo laborum. Minima?
+              </div>
+              
+            </div>
+            <div class="d-flex flex-row">
+                <div class="p-4 align-self-start">
+                  <i class="fa fa-check"></i>
+                </div>
+                <div class="p4 align-self-end">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus nobis illum repellat id modi porro fuga magnam alias eum quod. Ea distinctio magni nulla, et sequi quaerat, odio cumque corporis ipsum, quia veritatis excepturi? Maiores cupiditate accusantium explicabo laborum. Minima?
+                </div>
+                
+              </div>
+            </div>
+     
+              
+      </div>
+    </div>
+  </section>
+  <!-- MAIN FOOTER -->
+  <footer id="main-footer" class="bg-dark">
+    <div class="container">
+      <div class="row">
+        <div class="col text-center">
+          <div class="py-4">
+            <div class="h3">LoopLAB</div>
+            <p>Copyright &copy; 2017</p>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#contactModal">
+              Contact Us
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CONTACT MODAL --> 
+  <div class="modal fade text-dark" id="contactModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="contactModalTitle">Contact Us</h5>
+          <button class="close" data-dismiss="modal"><span>&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <form >
+              <div class="form-group">
+                  <label for="name">Name</label>
+                  <input type="text" class="form-control">
+                </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="text" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="text">Message</label>
+              <textarea class="form-control"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary btn-block">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/scrolling.js"></script>
+  
+<!-- Code injected by live-server -->
+<script type="text/javascript">
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function() {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					head.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					head.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function(msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			console.log('Live reload enabled.');
+		})();
+	}
+	// ]]>
+</script>
+</body>
+</html>

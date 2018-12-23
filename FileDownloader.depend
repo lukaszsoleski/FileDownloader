@@ -1,0 +1,78 @@
+# depslib dependency file v1.0
+1543843750 source:c:\users\luckz\documents\files\prm0\filedownloader\main.c
+	<stdio.h>
+	<curl/curl.h>
+
+1536086918 c:\curl-7.61.1-win64-mingw\include\curl\curl.h
+	"curlver.h"
+	"system.h"
+	<stdio.h>
+	<limits.h>
+	<osreldate.h>
+	<sys/types.h>
+	<time.h>
+	<winsock2.h>
+	<ws2tcpip.h>
+	<sys/select.h>
+	<sys/socket.h>
+	<sys/time.h>
+	<support/SupportDefs.h>
+	"easy.h"
+	"multi.h"
+	"typecheck-gcc.h"
+
+1536119280 c:\curl-7.61.1-win64-mingw\include\curl\curlver.h
+
+1535354174 c:\curl-7.61.1-win64-mingw\include\curl\system.h
+	<winsock2.h>
+	<windows.h>
+	<ws2tcpip.h>
+	<sys/types.h>
+	<sys/socket.h>
+	<sys/poll.h>
+
+1512250400 c:\curl-7.61.1-win64-mingw\include\curl\easy.h
+
+1528979484 c:\curl-7.61.1-win64-mingw\include\curl\multi.h
+	"curl.h"
+
+1536086918 c:\curl-7.61.1-win64-mingw\include\curl\typecheck-gcc.h
+
+1540914840 c:\users\luckz\documents\files\prm0\filedownloader\curl-7.62.0-win32-mingw\include\curl\curl.h
+	"curlver.h"
+	"system.h"
+	<stdio.h>
+	<limits.h>
+	<osreldate.h>
+	<sys/types.h>
+	<time.h>
+	<winsock2.h>
+	<ws2tcpip.h>
+	<sys/select.h>
+	<sys/socket.h>
+	<sys/time.h>
+	<support/SupportDefs.h>
+	"easy.h"
+	"multi.h"
+	"urlapi.h"
+	"typecheck-gcc.h"
+
+1540964642 c:\users\luckz\documents\files\prm0\filedownloader\curl-7.62.0-win32-mingw\include\curl\curlver.h
+
+1540793490 c:\users\luckz\documents\files\prm0\filedownloader\curl-7.62.0-win32-mingw\include\curl\system.h
+	<winsock2.h>
+	<windows.h>
+	<ws2tcpip.h>
+	<sys/types.h>
+	<sys/socket.h>
+	<sys/poll.h>
+
+1540630854 c:\users\luckz\documents\files\prm0\filedownloader\curl-7.62.0-win32-mingw\include\curl\easy.h
+
+1539865672 c:\users\luckz\documents\files\prm0\filedownloader\curl-7.62.0-win32-mingw\include\curl\multi.h
+	"curl.h"
+
+1540630854 c:\users\luckz\documents\files\prm0\filedownloader\curl-7.62.0-win32-mingw\include\curl\urlapi.h
+
+1540630854 c:\users\luckz\documents\files\prm0\filedownloader\curl-7.62.0-win32-mingw\include\curl\typecheck-gcc.h
+
