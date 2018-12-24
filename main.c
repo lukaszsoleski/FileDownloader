@@ -31,12 +31,37 @@ size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, void *user
   mem->memory[mem->size] = '\0';
   // return written size 
   return realsize;
-}
+} // End WriteMemoryCallback
+char* GetDomain(char * link){
+  int i; 
+  int counter;
+  for (i = 0; i < strlen(link); i = i + 1){
+    if(link[i] == '/') counter = counter + 1; 
+    if(link[i] == '\0') counter = 3; 
+    if(counter == 3){
+      break; 
+    }
+  }
+  char* result = malloc(i+1); 
+  memcpy(result,&link[0],i);
+  result[i] = '\0'; 
+  
+  return result;
+}// END GetDomain
 
+void ExtractLinks(char* html, char* filter, char* folder){
+  int index = 0; 
+  int linkLength=0; 
+  char* currentLink; 
+
+}
 int main(int argc, char *argv[])
 {
   CURL *curl;
   CURLcode res;
+  
+  char* folder; 
+  char* filter; 
 
   struct MemoryStruct chunk;
 
@@ -103,13 +128,18 @@ int main(int argc, char *argv[])
     /* Perform the request, res will get the return code */
     res = curl_easy_perform(curl);
     /* Check for errors */
-    if(res != CURLE_OK)
-      fprintf(stderr, "curl_easy_perform() failed: %s\n",
-              curl_easy_strerror(res));
+    if(res != CURLE_OK){
+      fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
+      exit(EXIT_FAILURE); 
+    }
     else {
-      printf("Printing HTML: \n"); 
-      printf("%s",chunk.memory); 
-
+     // Download(chunk.memory,filter,folder); 
+      char* stackoverflow = "https://stackoverflow.com";
+      char* domain; 
+      domain = GetDomain(stackoverflow); 
+      printf("%s",domain); 
+     // printf("Printing HTML: \n"); 
+     // printf("%s",chunk.memory); 
     }
 
   }
@@ -122,5 +152,3 @@ int main(int argc, char *argv[])
 
   return 0;
 }
-
-
