@@ -2,7 +2,9 @@
 #include <curl/curl.h>
 #include <stdlib.h>
 #include <string.h>
-#define SKIP_PEER_VERIFICATION = TRUE;
+#include <ctype.h>
+#define SKIP_PEER_VERIFICATION 1
+#define LINKS_CAPACITY 256
 // libcurl result containing html text
 struct MemoryStruct {
   char *memory;
@@ -17,7 +19,7 @@ size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, void *user
   // allocate required space
   char *temp = realloc(mem->memory, mem->size + realsize + 1);
   if(temp == NULL) {
-    /* out of memory! */ 
+    /* out of memory! */
     printf("not enough memory (realloc returned NULL)\n");
     return 0;
   }
@@ -29,55 +31,80 @@ size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, void *user
   mem->size += realsize;
   // add the end of string character
   mem->memory[mem->size] = '\0';
-  // return written size 
+  // return written size
   return realsize;
 } // End WriteMemoryCallback
 char* GetDomain(char * link){
-  int i; 
+  int i;
   int counter;
   for (i = 0; i < strlen(link); i = i + 1){
-    if(link[i] == '/') counter = counter + 1; 
-    if(link[i] == '\0') counter = 3; 
+    if(link[i] == '/') counter = counter + 1;
+    if(link[i] == '\0') counter = 3;
     if(counter == 3){
-      break; 
+      break;
     }
   }
-  char* result = malloc(i+1); 
+  char* result = malloc(i+1);
   memcpy(result,&link[0],i);
-  result[i] = '\0'; 
-  
+  result[i] = '\0';
   return result;
 }// END GetDomain
+int IsSpace(char c){
+  return c == ' ' || c == '\t' || c == '\n';
+}
+
+// ignore spaces and case
+// return end index pos or 0
+int StartsWith(char * str, char * substr, int startAt)
+{
+
+  int max = strlen(substr);
+  int count = 0;
+  for (int i = startAt; i < strlen(str); i = i + 1) {
+    if(!IsSpace(str[i])){
+
+      if(tolower(str[i]) == tolower(substr[count])){
+        count = count + 1;
+      }
+      else return 0;
+    }
+    if (count == max) return i;
+  }
+}
 
 void ExtractLinks(char* html, char* filter, char* folder){
-  int index = 0; 
-  int linkLength=0; 
-  char* currentLink; 
+  int index = 0;
+  int linkLength=0;
+  char links[LINKS_CAPACITY];
+  char* currentLink;
+  for(int i =0; i < strlen(html); i = i +1){
 
+    }
 }
+
 int main(int argc, char *argv[])
 {
   CURL *curl;
   CURLcode res;
-  
-  char* folder; 
-  char* filter; 
+
+  char* folder;
+  char* filter;
 
   struct MemoryStruct chunk;
 
-  chunk.memory = malloc(1);  /* will be grown as needed by the realloc in callback func */ 
-  chunk.size = 0;    /* no data at this point */ 
+  chunk.memory = malloc(1);  /* will be grown as needed by the realloc in callback func */
+  chunk.size = 0;    /* no data at this point */
   //init curl library globally
   curl_global_init(CURL_GLOBAL_DEFAULT);
 
-  /* init the curl session */ 
+  /* init the curl session */
   curl = curl_easy_init();
-  /* send all data to this function  */ 
+  /* send all data to this function  */
   curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteMemoryCallback);
-   /* we pass our 'chunk' struct to the callback function */ 
+   /* we pass our 'chunk' struct to the callback function */
   curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk);
   /* some servers don't like requests that are made without a user-agent
-     field, so we provide one */ 
+     field, so we provide one */
   curl_easy_setopt(curl, CURLOPT_USERAGENT, "libcurl-agent/1.0");
 
 /*
@@ -130,21 +157,25 @@ int main(int argc, char *argv[])
     /* Check for errors */
     if(res != CURLE_OK){
       fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
-      exit(EXIT_FAILURE); 
+      exit(EXIT_FAILURE);
     }
     else {
-     // Download(chunk.memory,filter,folder); 
-      char* stackoverflow = "https://stackoverflow.com";
-      char* domain; 
-      domain = GetDomain(stackoverflow); 
-      printf("%s",domain); 
-     // printf("Printing HTML: \n"); 
-     // printf("%s",chunk.memory); 
+     // Download(chunk.memory,filter,folder);
+      char* stackoverflow = "https://stackoverflow.com/questions/6803387/why-can-a-string-be-assigned-to-a-char-pointer-but-not-to-a-char-array";
+      char* domain;
+      domain = GetDomain(stackoverflow);
+      printf("%s\n",domain);
+      char* mainstr = " < href  = 'http:stackoverflow.com'";
+      char * sub = "HReF='";
+      int res = StartsWith(mainstr,sub,2);
+      printf("%d",res);
+     // printf("Printing HTML: \n");
+     // printf("%s",chunk.memory);
     }
 
   }
 
-  
+
   /* always cleanup */
   curl_easy_cleanup(curl);
   free(chunk.memory);
