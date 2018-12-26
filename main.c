@@ -6,6 +6,8 @@
 #define SKIP_PEER_VERIFICATION 1
 #define LINKS_CAPACITY 256
 // libcurl result containing html text
+
+
 struct MemoryStruct {
   char *memory;
   size_t size;
@@ -54,7 +56,7 @@ int IsSpace(char c){
 }
 
 // ignore spaces and case
-// return end index pos or 0
+// return end index pos or -1
 int StartsWith(char * str, char * substr, int startAt)
 {
 
@@ -66,19 +68,18 @@ int StartsWith(char * str, char * substr, int startAt)
       if(tolower(str[i]) == tolower(substr[count])){
         count = count + 1;
       }
-      else return 0;
+      else return -1;
     }
     if (count == max) return i;
   }
 }
 
-void ExtractLinks(char* html, char* filter, char* folder){
+void ExtractLinks(char* html, char* filter, char** out){
   int index = 0;
   int linkLength=0;
-  char links[LINKS_CAPACITY];
   char* currentLink;
   for(int i =0; i < strlen(html); i = i +1){
-
+      
     }
 }
 
@@ -86,7 +87,8 @@ int main(int argc, char *argv[])
 {
   CURL *curl;
   CURLcode res;
-
+  char** links; 
+  links = malloc(LINKS_CAPACITY * sizeof(char*));
   char* folder;
   char* filter;
 
@@ -168,6 +170,8 @@ int main(int argc, char *argv[])
       char* mainstr = " < href  = 'http:stackoverflow.com'";
       char * sub = "HReF='";
       int res = StartsWith(mainstr,sub,2);
+      ExtractLinks(html,filter,links);
+
       printf("%d",res);
      // printf("Printing HTML: \n");
      // printf("%s",chunk.memory);
