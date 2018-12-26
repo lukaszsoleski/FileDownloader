@@ -5,14 +5,19 @@
 #include <ctype.h>
 #define SKIP_PEER_VERIFICATION 1
 #define LINKS_CAPACITY 256
-// libcurl result containing html text
 
-
+const char* const tokens [] = {"href='","href=\"","src='","src\""};
+int link_count; 
 struct MemoryStruct {
   char *memory;
   size_t size;
 };
-// libcurl callback function
+static size_t ToFile(void *ptr, size_t size, size_t nmemb, void *stream)
+{
+  size_t written = fwrite(ptr, size, nmemb, (FILE *)stream);
+  return written;
+}
+// libcurl callback function for getting html content
 size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, void *userp)
 {
   // full size
@@ -36,6 +41,16 @@ size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, void *user
   // return written size
   return realsize;
 } // End WriteMemoryCallback
+int GetLength(char* ptr){
+  int count = 0; 
+  int i = 0; 
+  while(ptr[i] != '\0')
+  {
+      count = count + 1;
+      i = i + 1; 
+  }  
+  return count; 
+}
 char* GetDomain(char * link){
   int i;
   int counter;
@@ -46,7 +61,7 @@ char* GetDomain(char * link){
       break;
     }
   }
-  char* result = malloc(i+1);
+  char* result = malloc((i+1)* sizeof(char));
   memcpy(result,&link[0],i);
   result[i] = '\0';
   return result;
@@ -73,14 +88,69 @@ int StartsWith(char * str, char * substr, int startAt)
     if (count == max) return i;
   }
 }
+int GetLinkLength(char*html,int index, char endchar){
+  int i = index; 
+  int count = 0; 
+  while(html[i] != endchar){
+    count = count + 1; 
+    i = i + 1; 
+  }
+  return count; 
+}
+// returns link position. 
+char* GetLink(char * html, int index, char endChar){
+  int count = 0;
+  int i = index;  
+  int length = GetLinkLength(html,index,endchar); 
 
+  char* link = malloc(length * sizeof(char)); 
+  while(html[i] != endchar){
+        link[count] = html[i]; 
+        count = count + 1; 
+         i = i + 1; 
+  }
+  link[count] = '\0'; 
+  return link; 
+}
+int Filter(char* link, char* filter){
+  
+  int filterLen = GetLength(filter); 
+  if(filterLen == 0) return 1; 
+
+  int index = GetLength(link) - filterLen - 1; 
+  int res = StartsWith(link,filter,index);
+  return res; 
+
+}
 void ExtractLinks(char* html, char* filter, char** out){
-  int index = 0;
-  int linkLength=0;
-  char* currentLink;
+  int maxLinksAmount = LINKS_CAPACITY;
+  int currentLength = 0; 
+  int currentBeginsAt = 0; 
+  int currentEndsAt = 0; 
+  int count = 0; 
   for(int i =0; i < strlen(html); i = i +1){
+      int isLink = -1; 
+      for(int j = 0; j < sizeof(tokens)/sizeof(tokens[0]); j = j + 1){
+          isLink = StartsWith(html,tokens[j],i); 
+          if(i > 0) break;
+      }
+      if(i < 0) continue; 
       
+      // else :      
+      char * link = GetLink(html,i,html[i-1]); 
+      int isSearched = Filter(link,filter); 
+      if(!isSearched) {
+        free(link); 
+        continue; 
+      }
+      out[i] = link;
+      int len = GetLength(link);
+      i = i + len; 
+
+      count = count + 1; 
+
     }
+    link_count = count; 
 }
 
 int main(int argc, char *argv[])
@@ -171,15 +241,34 @@ int main(int argc, char *argv[])
       char * sub = "HReF='";
       int res = StartsWith(mainstr,sub,2);
       ExtractLinks(html,filter,links);
+      FILE* files[link_count]; 
+      //todo: get file name; 
+      curl_easy_reset(curl); 
+      curl_easy_setopt(curl, CURLOPT_USERAGENT, "libcurl-agent/1.0");
+      curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, ToFile);
 
-      printf("%d",res);
-     // printf("Printing HTML: \n");
-     // printf("%s",chunk.memory);
+    
+      for(int i = 0; i < link_count; i = i + 1){
+        char* name = GetFileNameFromLink(links[i]); 
+        char* path = CombinePath(folder,name); 
+        
+        files[i] = fopen(path,"wb");
+        if(files[i]){
+          curl_easy_setopt(curl, CURLOPT_URL, links[i]);
+
+          /* write the page body to this file handle */ 
+         curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, files[i]);
+           /* get it! */ 
+         curl_easy_perform(curl_handle);
+
+          /* close the header file */ 
+         fclose(pagefile);
+ 
+        }
+      }
     }
 
   }
-
-
   /* always cleanup */
   curl_easy_cleanup(curl);
   free(chunk.memory);
