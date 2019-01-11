@@ -76,11 +76,12 @@
 
 1540630854 c:\users\luckz\documents\files\prm0\filedownloader\curl-7.62.0-win32-mingw\include\curl\typecheck-gcc.h
 
-1545777059 source:c:\users\luke\documents\repo\filedownloader\filedownloader\main.c
+1547217273 source:c:\users\luke\documents\repo\filedownloader\filedownloader\main.c
 	<stdio.h>
 	<curl/curl.h>
 	<stdlib.h>
 	<string.h>
+	<ctype.h>
 
 1540914840 c:\users\luke\documents\repo\filedownloader\filedownloader\curl-7.62.0-win32-mingw\include\curl\curl.h
 	"curlver.h"
