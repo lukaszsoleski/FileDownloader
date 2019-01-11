@@ -131,6 +131,7 @@ int StartsWithIgnoringCaseAndSpaces(char * str, char * substr, int startAt)
 		if (count == max) return i;
 
 	}
+	return -1;
 }
 // count the number of characters up to specified one
 int CountFromTo(char* str, int startAt, char endChar) {
@@ -176,6 +177,12 @@ int EndsWith(char* str, char* filter) {
 	if (res < 0) return 0;
 	else return 1;
 }
+void printLinks(){
+    printf("\nLinks count: %d\n", _linksCount);
+for(int i = 0; i < _linksCount; i = i + 1){
+    printf("%s\n",_links[i]);
+    }
+}
 /*Extracts links to global variable */
 void ExtractLinks(char* html, char* filter) {
 	_linksCount = 0;
@@ -188,6 +195,7 @@ void ExtractLinks(char* html, char* filter) {
     int tokensCount = sizeof(_linkTokens) / sizeof(_linkTokens[0]);
 
 	for (int i = 0; i < htmlLength; i = i + 1) { //iterate through html
+        char tempCharCurr = html[i];
 		if (maxLinksAmount <= count) break;
 		int isLink = -1;
 		int j = 0;
@@ -209,6 +217,11 @@ void ExtractLinks(char* html, char* filter) {
         int linkLen = GetLength(link);
         // go to end of found link
 		i = isLink + 1 + linkLen;
+		if(link[0] == '#'){
+                free(link);
+                continue;
+
+        }
 		// check extension
 		int isSearched = 1;
 		if(filterLength > 0){
@@ -218,10 +231,12 @@ void ExtractLinks(char* html, char* filter) {
 			free(link);
 			continue;
         }
-		strcpy(&_links[count], link);
+		strcpy(_links[count], link);
 		free(link);
+
 		count = count + 1;
 		_linksCount = _linksCount + 1;
+		printLinks();
 	}
 }
 /*Returns substring from given string starting from last occurrence of given character*/
@@ -459,14 +474,22 @@ int main(int argc, char *argv[])
 			// iterate thougth extracted links
 			// combine path
 			for (int i = 0; i < _linksCount; i = i + 1) {
+
 				char* name = GetLastSeparatedItem(_links[i],'/');
 				int isAbsolutePath = StartsWithIgnoringCaseAndSpaces(_links[i], "http", 0);
 				char* localPath = CombinePath(_folder, name);
 				// create absolute path if it is relative
 				if (isAbsolutePath < 0) {
+
 					char* websiteDir = GetFolder(_mainWebsiteLink,'/');
 					char* link = CombinePath(websiteDir, _links[i]);
-					strcpy(&_links[i], link);
+					free(_links[i]);
+					printf("\nLinks 1 :\n");
+					printLinks();
+					strcpy(_links[i], link);
+					//free local pointers
+					free(websiteDir);
+					free(link);
 				}
 
 				files[i] = fopen(localPath, "wb");
@@ -482,13 +505,21 @@ int main(int argc, char *argv[])
 					fclose(files[i]);
 
 				}
+				free(name);
+				free(localPath);
+
 			}
+        for(int i = 0 ; i < _linksCount; i = i + 1){
+        free(files[i]);
+	}
+	free(files);
 		}
 
 	}
 	/* always cleanup */
 	curl_easy_cleanup(curl);
 	free(html.memory);
+
 	curl_global_cleanup();
 
 	return 0;
