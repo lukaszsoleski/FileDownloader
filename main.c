@@ -236,7 +236,7 @@ void ExtractLinks(char* html, char* filter) {
 
 		count = count + 1;
 		_linksCount = _linksCount + 1;
-		printLinks();
+
 	}
 }
 /*Returns substring from given string starting from last occurrence of given character*/
@@ -374,6 +374,19 @@ int Help() {
 	if (useExt[0] == 'y')
 		GetLine("Filter: ", &_filter);
 }
+int Contains(char* str, char el){
+    int len = GetLength(str);
+    int result = 0;
+    for(int i = 0; i < len; i = i + 1)
+    {
+        if(str[i] == el)
+        {
+            result = 1;
+            break;
+        }
+    }
+    return result;
+}
 int main(int argc, char *argv[])
 {
 
@@ -465,8 +478,12 @@ int main(int argc, char *argv[])
 		else {
             printf("%s",html.memory);
 			ExtractLinks(html.memory,&_filter);
+			printf("\nLinks:");
+			for(int i = 0; i < _linksCount; i = i + 1){
+                printf("\n%s",_links[i]);
+			}
 			// array of pointers to files
-			FILE** files = malloc(_linksCount * sizeof(FILE*));
+			FILE* currFile;
 			//todo: get file name;
 			curl_easy_reset(curl);
 			curl_easy_setopt(curl, CURLOPT_USERAGENT, "libcurl-agent/1.0");
@@ -474,8 +491,15 @@ int main(int argc, char *argv[])
 			// iterate thougth extracted links
 			// combine path
 			for (int i = 0; i < _linksCount; i = i + 1) {
-
-				char* name = GetLastSeparatedItem(_links[i],'/');
+                char * name;
+                if(Contains(_links[i],'/'))
+                {
+                     name = GetLastSeparatedItem(_links[i],'/');
+                }
+				else
+                {
+                    name = _links[i];
+                }
 				int isAbsolutePath = StartsWithIgnoringCaseAndSpaces(_links[i], "http", 0);
 				char* localPath = CombinePath(_folder, name);
 				// create absolute path if it is relative
@@ -483,38 +507,34 @@ int main(int argc, char *argv[])
 
 					char* websiteDir = GetFolder(_mainWebsiteLink,'/');
 					char* link = CombinePath(websiteDir, _links[i]);
+					printf("Combined path: %s",link);
 					free(_links[i]);
-					printf("\nLinks 1 :\n");
-					printLinks();
 					strcpy(_links[i], link);
 					//free local pointers
 					free(websiteDir);
 					free(link);
-				}
+				}// end if isAbsolutePath
 
-				files[i] = fopen(localPath, "wb");
-				if (files[i]) {
+				currFile = fopen(localPath, "wb+");
+				if (currFile) {
 					curl_easy_setopt(curl, CURLOPT_URL, _links[i]);
 
 					/* write the page body to this file handle */
-					curl_easy_setopt(curl, CURLOPT_WRITEDATA, files[i]);
+					curl_easy_setopt(curl, CURLOPT_WRITEDATA, currFile);
+
+					printf("\nPerforming download... %s",_links[i]);
 					/* get it! */
 					curl_easy_perform(curl);
-
 					/* close the header file */
-					fclose(files[i]);
-
+					fclose(currFile);
+                    printf("\nSaved: %s",localPath);
+                    free(currFile);
 				}
 				free(name);
 				free(localPath);
 
 			}
-        for(int i = 0 ; i < _linksCount; i = i + 1){
-        free(files[i]);
-	}
-	free(files);
 		}
-
 	}
 	/* always cleanup */
 	curl_easy_cleanup(curl);
