@@ -418,7 +418,7 @@ int main(int argc, char *argv[])
 		//TEMP DATA FOR TESTING
 		strcpy(_mainWebsiteLink, "http://127.0.0.1:8080/");
 		strcpy(_folder, "C:\\Users\\Luke\\Desktop\\temp");
-		_filter[0] = 0;
+		strcpy(_filter,".css");
 		printf("\n%s",_mainWebsiteLink);
 		printf("\n%s",_folder);
 
@@ -507,7 +507,7 @@ int main(int argc, char *argv[])
 
 					char* websiteDir = GetFolder(_mainWebsiteLink,'/');
 					char* link = CombinePath(websiteDir, _links[i]);
-					printf("Combined path: %s",link);
+					printf("\nCombined path: %s",link);
 					free(_links[i]);
 					strcpy(_links[i], link);
 					//free local pointers
@@ -527,7 +527,7 @@ int main(int argc, char *argv[])
 					curl_easy_perform(curl);
 					/* close the header file */
 					fclose(currFile);
-                    printf("\nSaved: %s",localPath);
+                    printf("\nSaved: %s\n",localPath);
                     free(currFile);
 				}
 				free(name);
