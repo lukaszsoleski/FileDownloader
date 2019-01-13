@@ -63,6 +63,19 @@ char GetLastChar(char* str)
 	char last = str[len - 1];
 	return last;
 }
+int Contains(char* str, char el){
+    int len = GetLength(str);
+    int result = 0;
+    for(int i = 0; i < len; i = i + 1)
+    {
+        if(str[i] == el)
+        {
+            result = 1;
+            break;
+        }
+    }
+    return result;
+}
 /*Checks if character is space, tabulator or new line*/
 int IsWhiteSpace(char c) {
 	return c == ' ' || c == '\t' || c == '\n';
@@ -222,6 +235,10 @@ void ExtractLinks(char* html, char* filter) {
                 continue;
 
         }
+        if(!Contains(link,'.')){
+            free(link);
+            continue;
+        }
 		// check extension
 		int isSearched = 1;
 		if(filterLength > 0){
@@ -374,19 +391,7 @@ int Help() {
 	if (useExt[0] == 'y')
 		GetLine("Filter: ", &_filter);
 }
-int Contains(char* str, char el){
-    int len = GetLength(str);
-    int result = 0;
-    for(int i = 0; i < len; i = i + 1)
-    {
-        if(str[i] == el)
-        {
-            result = 1;
-            break;
-        }
-    }
-    return result;
-}
+
 int main(int argc, char *argv[])
 {
 
@@ -410,19 +415,9 @@ int main(int argc, char *argv[])
 	/* some servers don't like requests that are made without a user-agent
 	   field, so we provide one */
 	curl_easy_setopt(curl, CURLOPT_USERAGENT, "libcurl-agent/1.0");
-    printf("%d",argc);
+
 
 	switch (argc) {
-
-	case 1:
-		//TEMP DATA FOR TESTING
-		strcpy(_mainWebsiteLink, "http://127.0.0.1:8080/");
-		strcpy(_folder, "C:\\Users\\Luke\\Desktop\\temp");
-		strcpy(_filter,".css");
-		printf("\n%s",_mainWebsiteLink);
-		printf("\n%s",_folder);
-
-		break;
 	case 3:
 		strcpy(_mainWebsiteLink, argv[1]);
 		strcpy(_folder, argv[2]);
@@ -434,7 +429,6 @@ int main(int argc, char *argv[])
 		strcpy(_filter, argv[3]);
 		break;
 	default:
-		printf("The number of arguments is incorrect.");
 		Help();
 		break;
 	}
